@@ -1,0 +1,108 @@
+<html>
+    <head>
+        <title> Quoridor </title>
+        <link rel="stylesheet" href="./static/css/styles.css">
+    </head>
+	<body>
+       <h1> Play Quoridor </h1>
+		<table id=""board">
+            <thead>
+                <tr>
+                    <th>1</th>
+                    <th></th>
+                    <th>2</th>
+                    <th></th>
+                    <th>3</th>
+                    <th></th>
+                    <th>4</th>
+                    <th></th>
+                    <th>5</th>
+                    <th></th>
+                    <th>6</th>
+                    <th></th>
+                    <th>7</th>
+                    <th></th>
+                    <th>8</th>
+                    <th></th>
+                    <th>9</th>
+                </tr>
+            </thead>
+            <tbody>
+            {%for row in grid%}
+            <tr>
+                {%for item in row%}
+                {%if item == "player_1"%}
+                <td id="player_one">1</td>
+                {%endif%}
+                {%if item == "i"%}
+                <td class="non_playable"></td>
+                {%endif%}
+                {%if item == "player_2"%}
+                <td id="player_two">2</td>
+                {%endif%}
+                {%if item == "H"%}
+                <td class="fence">---</td>
+                {%endif%}
+                {%if item == "V"%}
+                <td class="fence">|</td>
+                {%endif%}
+                {%if item == "TWO"%}
+                <td>{{item}}</td>
+                {%endif%}
+                {%if item == "O"%}
+                <td class="open_cell"></td>
+                {%endif%}
+                {%if item == "+"%}
+                <td class="cell_corner">+</td>
+                {%endif%}
+                {%endfor%}
+            </tr>
+            {%endfor%}
+        </tbody>
+        </table>
+
+        <p> current turn is: {{turn}}</p>
+        <p> Add Fence </p>
+        <form action="/addfence" method="post">
+            <input name="X" placeholder="input X" required>
+            <input name="Y" placeholder="input Y" required>
+            <select name="alignment" required>
+                <option value="Horizontal">Horizontal</option>
+                <option value="Verticle">Verticle</option>
+            </select>
+            <input type="submit" value="Submit">
+        </form>
+        <p> Move Pawn</p>
+        <form action="/movepawn" method="post">
+            <input name="X" placeholder="input X" >
+            <input name="Y" placeholder="input Y">
+            <input type="submit" value="Submit">
+        </form>
+
+        <p> Player 1 fences: {{fences[0]}} </p>
+        <p> Player 2 fences: {{fences[1]}} </p>
+        
+        <form action="/show_instruction" method="post"> 
+            <input type="submit" value="Show Instructions"></form>
+
+        <div id="instructions" style="visibility:{{ visibility }}">
+        The game begins with each players pawn on their own baseline, white cells may be moved into 
+        and fences may be placed in beige spaces. Black boxes show the corners of spaces and you cannot move into 
+        these spaces or place fences in them.
+        Player one goes first, on your turn you can either placea fence or move your Pawn
+        a fence can be placed on any non occupied space between black markers signifying the corners of movable 
+        spaces. A fence cannot be placed in the top or bottom row and a fence cannot completely box in your
+        opponent. When placinga fence chose the cordinates and direction (vetical or horizontal), a verticle fence 
+        will be placed left of the space and a horizontal fence will be placed above it. Each player has 10 fences. 
+        A pawn may move one space up down left or right and may move diagonal only when blocked by two fences or
+        a fence and the other players pawn, one pawn may jump the other when they are touching. The first player
+        to get their pawn fully across the board wins.
+        <p>Additionally you can see a video description <a href="https://www.youtube.com/watch?v=6ISruhN0Hc0">HERE</a></p>
+        <form action="/hide_instruction" method="post"> 
+            <input type="submit" value="Hide"></form>
+    </div>
+        
+       
+
+	</body>
+</html>

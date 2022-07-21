@@ -1,0 +1,51 @@
+body {
+    align-content: center;
+    text-align: center;
+}
+table {
+    border: 2px solid black;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    height: 80vh;
+    width: 60vw;
+    float: right;
+}
+
+#board {
+    align-self: center;
+}
+.cell_corner {
+    text-size: .2em;
+    background-color: black;
+}
+#player_one, #player_two {
+    text-size: .1em;
+}
+.fence {
+    padding: 0;
+    margin: 0;
+    font-size: .5em;
+    font-weight: bold;
+    background-color: black;
+}
+.fence, .open_cell, #player_one, #player_two {
+    height: 2em;
+    width: 2.3em;
+}
+.non_playable {
+    background-color: blanchedalmond;
+}
+.cell_corner, .non_playable {
+    height: .4em;
+    width: .4em;
+    padding: 0;
+    margin: 0;
+}
+#instructions {
+    width: 30vw;
+    text-align: center;
+    position: relative;
+    left: 4vw;
+    border: 3px solid black;
+}
