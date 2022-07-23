@@ -135,7 +135,7 @@ class QuoridorGame:
         if (cur_x - 2 != x and cur_x + 2 != x and cur_x != x) or \
                 (cur_y - 2 != y and cur_y + 2 != y and cur_y != y) or \
                 (self._board[x][y] != "O"):
-                return "False1"
+                return False
         return self.validate_normal(x, y, current_space)
 
 
@@ -162,6 +162,7 @@ class QuoridorGame:
     def move_diagonal_or_jump(self, x, y, current_space):
         """performs initial validation of jump or diagonal and determines if move
         is jump or diagonal"""
+
         cur_x = current_space[0]
         cur_y = current_space[1]
         if (cur_x - 4 == x or cur_x + 4 == x and cur_y == y) or \
@@ -187,7 +188,7 @@ class QuoridorGame:
                     return make_move(x, y, current_space)
             except:
                 continue
-        return "FalseCC"
+        return False
 
 
     def validate_jump(self, x, y, current_space):
@@ -222,9 +223,13 @@ class QuoridorGame:
         if self._turn == "player_1":
             self._player_1_position = (x, y)
             self._turn = "player_2"
+            if x == 16:
+                self._game_state = "player_1_wins"
         else:
             self._player_2_position = (x, y)
             self._turn = "player_1"
+            if x == 0:
+                self._game_state = "player_2_wins"
         return True
 
 
@@ -237,16 +242,8 @@ class QuoridorGame:
     def check_winner(self):
         """checks if game has been won"""
 
-        if self._turn == "player_2":
-            for x in range(17):
-                if self._board[16][x] == "player_1":
-                    self._game_state = "Won"
-                    return True
-        else:
-             for x in range(17):
-                if self._board[0][x] == "player_2":
-                    self._game_state = "Won"
-                    return True
+        if self._game_state != "unfinished":
+            return True
         return False
 
 
